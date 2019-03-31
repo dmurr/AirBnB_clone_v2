@@ -54,6 +54,6 @@ Ex:
 `City.show(my_city_id)`
 
 ## Authors
-Miranda Evans miranda.r.evans@gmail.com
-Kevin Yook kevin.yook@holbertonschool.com
-Martin Smith martin.smith@holberton.com
+- Miranda Evans miranda.r.evans@gmail.com
+- Kevin Yook kevin.yook@holbertonschool.com
+- Martin Smith martin.smith@holberton.com
