@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
                 obj = eval("{}()".format(my_list[0]))
             else:
                 kwargs = HBNBCommand.parse_line(my_list[1:])
-                obj = eval("{}({})".format(my_list[0]), kwargs)
+                obj = eval("{}(**{})".format(my_list[0], kwargs))
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:
@@ -251,7 +251,7 @@ class HBNBCommand(cmd.Cmd):
                     self.do_update(args)
         else:
             cmd.Cmd.default(self, line)
-    
+
     @staticmethod
     def parse_line(my_list=[]):
         """This fuction will split up and convert a list of argument into
@@ -268,6 +268,8 @@ class HBNBCommand(cmd.Cmd):
         for ele in my_list:
             try:
                 key, val = tuple(ele.split('=', 1))
+                if val == '':
+                    continue
             except ValueError:
                 continue
             v = val
@@ -276,10 +278,10 @@ class HBNBCommand(cmd.Cmd):
                 v = int(val)
             except:
                 pass
-            
-            if type(v) in (str, int , float):
-                kwargs.update({key : v})
-        
+
+            if type(v) in (str, int, float):
+                kwargs.update({key: v})
+
         return kwargs
 
 
