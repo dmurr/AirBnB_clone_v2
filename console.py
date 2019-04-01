@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
             print(my_list)
             return
         try:
-            args = line.split(" ")
+            args = line.split(" ", 1)
             if args[0] not in self.all_classes:
                 raise NameError()
             for key in objects:
@@ -278,6 +278,11 @@ class HBNBCommand(cmd.Cmd):
                 v = int(val)
             except:
                 pass
+
+            if type(v) is str:
+                v = v[(v.find('"') + 1):(v.rfind('"'))]\
+                        .replace('_', ' ')\
+                        .strip()
 
             if type(v) in (str, int, float):
                 kwargs.update({key: v})
