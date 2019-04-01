@@ -42,7 +42,11 @@ class HBNBCommand(cmd.Cmd):
             if not line:
                 raise SyntaxError()
             my_list = line.split(" ")
-            obj = eval("{}()".format(my_list[0]))
+            if len(my_list) == 1:
+                obj = eval("{}()".format(my_list[0]))
+            else:
+                kwargs = HBNBCommand.parse_line(my_list[1:])
+                obj = eval("{}({})".format(my_list[0]), kwargs)
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:
@@ -247,6 +251,36 @@ class HBNBCommand(cmd.Cmd):
                     self.do_update(args)
         else:
             cmd.Cmd.default(self, line)
+    
+    @staticmethod
+    def parse_line(my_list=[]):
+        """This fuction will split up and convert a list of argument into
+        key value pairs. It will close clean and or convert the values from
+        their string to proper types if necessary.
+
+        Args:
+            list of key assigned a value via equal sign
+
+        Returns:
+            Dictionary
+        """
+        kwargs = dict()
+        for ele in my_list:
+            try:
+                key, val = tuple(ele.split('=', 1))
+            except ValueError:
+                continue
+            v = val
+            try:
+                v = float(val)
+                v = int(val)
+            except:
+                pass
+            
+            if type(v) in (str, int , float):
+                kwargs.update({key : v})
+        
+        return kwargs
 
 
 if __name__ == '__main__':
