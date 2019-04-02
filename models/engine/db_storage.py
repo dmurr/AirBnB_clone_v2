@@ -35,7 +35,6 @@ class DBStorage:
                 host=getenv('HBNB_MYSQL_HOST'),
                 db=getenv('HBNB_MYSQL_DB')
             )
-        print(engine)
         self.__engine = create_engine(engine, pool_pre_ping=True)
 
         if getenv('HBNB_ENV') == 'test':
@@ -52,7 +51,6 @@ class DBStorage:
         """
         collection = dict()
         if cls:
-            print('some')
             session = self.__session.query(cls)
             for entity in session:
                 key = '{}.{}'.format(entity.__class__.__name__, entity.id)
