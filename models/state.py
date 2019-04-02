@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
+
 class State(BaseModel, Base):
     """This is the class for State
     Attributes:
@@ -15,4 +16,4 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
-	    pass
+        pass
