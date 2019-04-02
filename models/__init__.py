@@ -12,9 +12,7 @@ from models.review import Review
 from os import getenv
 
 if getenv('HBNB_TYPE_STORAGE') == 'db':
-    print('running in DB mode')
     storage = DBStorage()
 else:
-    print('running in FILE mode')
     storage = FileStorage()
 storage.reload()
