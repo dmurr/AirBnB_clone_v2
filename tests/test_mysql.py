@@ -5,7 +5,7 @@ import os
 import tests
 import MySQLdb
 
-
+my_env = os.environ.copy()
 TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 DB_HOST = os.getenv('HBNB_MYSQL_HOST')
 DB_USER = os.getenv('HBNB_MYSQL_USER')
@@ -22,8 +22,9 @@ class TestMySQLdb(unittest.TestCase):
             db = MySQLdb.connect(
                 host=DB_HOST,
                 user=DB_USER,
-                password=DB_PWD,
+                password=DB_PWD
             )
         except Exception as e:
+            print(my_env)
             print("Establish connection with DB failed due to {}", e)
             self.assertTrue(False)

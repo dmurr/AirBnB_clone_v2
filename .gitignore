@@ -1,5 +1,5 @@
-
-            iche__/
+# Byte-compiled / optimized / DLL files
+********__pycache__/
 *.py[cod]
 *$py.class
 
@@ -120,5 +120,7 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
-.pyre/f val is ''
-                continue
+.pyre/
+
+# User
+airbnb_env.sh
