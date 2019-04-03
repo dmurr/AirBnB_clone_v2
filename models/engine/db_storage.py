@@ -57,7 +57,7 @@ class DBStorage:
                 collection.update({key: entity})
         else:
             for obj in Avalible:
-                session = self.__session.query(State).all()
+                session = self.__session.query(obj).all()
                 for entity in session:
                     key = '{}.{}'.format(entity.__class__.__name__, entity.id)
                     collection.update({key: entity})
