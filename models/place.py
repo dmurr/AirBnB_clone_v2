@@ -6,6 +6,7 @@ from sqlalchemy import Column, String, Float, Integer, ForeignKey
 from os import getenv
 import models
 
+
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
@@ -35,9 +36,13 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     if getenv('HBNB_TYPE_STORAGE') is 'db':
-        reviews = relationship('Review', backref='place', cascade='all, delete')
+        reviews = relationship(
+                'Review',
+                backref='place',
+                cascade='all, delete'
+                )
     else:
         @property
         def reviews(self):
             objs = models.storage.all(Review)
-            return [v for k, v in obj.items() if v.place_id == self.id ]
+            return [v for k, v in obj.items() if v.place_id == self.id]
