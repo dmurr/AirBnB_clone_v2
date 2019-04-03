@@ -26,11 +26,14 @@ class FileStorage:
             returns a dictionary of __object
         """
         if cls:
-            return {
-                key: value
-                for key, value in self.__object.items()
-                if value.__class__ is cls
-            }
+            if cls in dir(self):
+                return {
+                    key: value
+                    for key, value in self.__object.items()
+                    if value.__class__ is cls
+                }
+            else:
+                return dict()
         return self.__objects
 
     def new(self, obj):
