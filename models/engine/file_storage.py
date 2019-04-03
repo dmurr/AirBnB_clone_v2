@@ -29,7 +29,7 @@ class FileStorage:
             return {
                 key: value
                 for key, value in self.__object.items()
-                value.__class__ is cls
+                if value.__class__ is cls
             }
         return self.__objects
 
