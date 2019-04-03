@@ -23,13 +23,13 @@ class FileStorage:
     def all(self, cls=None):
         """returns a dictionary
         Return:
-            returns a dictionary of __object
+            returns a dictionary of __objects
         """
         if cls:
             if cls in dir(self):
                 return {
                     key: value
-                    for key, value in self.__object.items()
+                    for key, value in self.__objects.items()
                     if value.__class__ is cls
                 }
             else:
