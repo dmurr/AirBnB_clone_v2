@@ -73,5 +73,3 @@ class FileStorage:
             try:
                 key = '{}.{}'.format(obj.__cls__.__name__, obj.id)
                 self.__objects.pop(key)
-            except:
-                pass
