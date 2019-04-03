@@ -12,8 +12,7 @@ from models.amenity import Amenity
 from models.review import Review
 from os import getenv
 
-Avalible = [State, City]
-
+Avalible = [State, City, User, Place, Review, Amenity]
 class DBStorage:
     """This class handles the interation with the database for the
     project
