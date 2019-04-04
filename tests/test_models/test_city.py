@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """test for city"""
+import tests
 import unittest
 import os
+from models.state import State
 from models.city import City
 from models.base_model import BaseModel
 import pep8
@@ -10,6 +12,18 @@ import pep8
 class TestCity(unittest.TestCase):
     """this will test the city class"""
 
+    @unittest.skipIf(
+    tests.TYPE_STORAGE == 'db',
+    "city state_id can't be null for database"
+    )
+    @classmethod
+    def setUpClass(cls):
+        """set up for test"""
+        cls.city = City()
+        cls.city.name = "LA"
+        cls.city.state_id = "CA"
+    
+    @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'FileStorage version')
     @classmethod
     def setUpClass(cls):
         """set up for test"""
@@ -58,6 +72,9 @@ class TestCity(unittest.TestCase):
 
     def test_save_City(self):
         """test if the save works"""
+        ca = State(name='Ca')
+        ca.save()
+        self.city.state_id = ca.id
         self.city.save()
         self.assertNotEqual(self.city.created_at, self.city.updated_at)
 

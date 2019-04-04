@@ -4,11 +4,15 @@ import unittest
 import os
 from models.place import Place
 from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.user import User
 import pep8
-
+import tests
 
 class TestPlace(unittest.TestCase):
     """this will test the place class"""
+
 
     @classmethod
     def setUpClass(cls):
@@ -83,8 +87,23 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(type(self.place.longitude), float)
         self.assertEqual(type(self.place.amenity_ids), list)
 
+    @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'using FileStoreage')
     def test_save_Place(self):
         """test if the save works"""
+        self.place.save()
+        self.assertNotEqual(self.place.created_at, self.place.updated_at)
+
+    @unittest.skipIf(tests.TYPE_STORAGE == 'db', 'Using Databe Storage')
+    def test_save_Place(self):
+        """test if the save works"""
+        state = State(name='California')
+        state.save()
+        city = City(name='San Jose', state_id=state.id)
+        city.save()
+        user = User(email="abc@cba.com", password="secret")
+        user.save()
+        self.place.city_id = city.id
+        self.place.user_id = user.id
         self.place.save()
         self.assertNotEqual(self.place.created_at, self.place.updated_at)
 
