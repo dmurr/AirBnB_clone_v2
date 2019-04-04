@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 """test for review"""
 import unittest
+import tests
 import os
 from models.review import Review
+from models.user import User
+from models.city import City
+from models.state import State
+from models.place import Place
 from models.base_model import BaseModel
 import pep8
 
@@ -59,8 +64,25 @@ class TestReview(unittest.TestCase):
         self.assertEqual(type(self.rev.place_id), str)
         self.assertEqual(type(self.rev.user_id), str)
 
+    @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'using fileStorage')
     def test_save_Review(self):
         """test if the save works"""
+        self.rev.save()
+        self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
+
+    @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'using fileStorage')
+    def test_save_Review(self):
+        """test if the save works"""
+        state = State(name="CA")
+        state.save()
+        city = City(name="SF", state_id=state.id)
+        city.save()
+        user = User(email='abc@abc.com', password="secret")
+        user.save()
+        place = Place(city_id=city.id, user_id=user.id, name="a place to stay")
+        place.save() 
+        self.rev.user_id = user.id
+        self.rev.place_id = place.id
         self.rev.save()
         self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
 
