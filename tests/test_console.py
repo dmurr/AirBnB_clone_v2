@@ -18,8 +18,8 @@ from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
 
-ENV = os.environ.get('HBNB_ENV')
-TYPE_STORAGE = os.environ.get('HBNB_TYPE_STORAGE')
+#ENV = os.environ.get('HBNB_ENV')
+#TYPE_STORAGE = os.environ.get('HBNB_TYPE_STORAGE')
 
 
 class TestConsole(unittest.TestCase):
@@ -75,7 +75,7 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("quit")
             self.assertEqual('', f.getvalue())
 
-    @unittest.skipIf(TYPE_STORAGE == 'db', 'using database engine')
+    @unittest.skipIf(tests.TYPE_STORAGE == 'db', 'using database engine')
     def test_create(self):
         """Test create command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -93,7 +93,7 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "[[User]", f.getvalue()[:7])
 
-    @unittest.skipIf(TYPE_STORAGE != 'db', 'using file engine')
+    @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'using file engine')
     def test_createi_db(self):
         """Test create command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -112,7 +112,7 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "[[User]", f.getvalue()[:7])
 
-    @unittest.skipIf(TYPE_STORAGE == 'db', 'using database engine')
+    @unittest.skipIf(tests.TYPE_STORAGE == 'db', 'using database engine')
     def test_show(self):
         """Test show command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -132,7 +132,7 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "** no instance found **\n", f.getvalue())
 
-    @unittest.skipIf(TYPE_STORAGE != 'db', 'using file egine')
+    @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'using file egine')
     def test_show_db(self):
         """Test show command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -231,7 +231,7 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("State.count()")
             self.assertEqual("0\n", f.getvalue())
 
-    @unittest.skipIf(TYPE_STORAGE == 'db', 'using database engine')
+    @unittest.skipIf(tests.TYPE_STORAGE == 'db', 'using database engine')
     def test_z_show(self):
         """Test alternate show command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -243,7 +243,7 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "** no instance found **\n", f.getvalue())
 
-    @unittest.skipIf(TYPE_STORAGE != 'db', 'using file engine')
+    @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'using file engine')
     def test_z_show(self):
         """Test alternate show command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
