@@ -2,9 +2,12 @@
 """This is the place class"""
 from models.base_model import BaseModel, Base
 from models.review import Review
-from sqlalchemy import Column, String, Float, Integer, ForeignKey
+from sqlalchemy import Column, String, Float, Integer, ForeignKey, Table
+from sqlalchemy.orm import relationship
 from os import getenv
 import models
+
+metadata = Base.metadata
 
 
 class Place(BaseModel, Base):
@@ -35,11 +38,24 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=False)
     amenity_ids = []
 
+    place_amenity = Table(
+        'place_amenity',
+        metadata,
+        Column('place_id', String(60), primary_key=True),
+        Column('amenity_id', String(60), primary_key=True)
+    )
+
     if getenv('HBNB_TYPE_STORAGE') is 'db':
         reviews = relationship(
-                'Review',
-                backref='place',
-                cascade='all, delete'
+            'Review',
+            backref='place',
+            cascade='all, delete'
+        )
+
+        amenities = relationship(
+                'Amenity',
+                secondary=place_amenity,
+
                 )
     else:
         @property
