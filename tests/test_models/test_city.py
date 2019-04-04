@@ -13,8 +13,8 @@ class TestCity(unittest.TestCase):
     """this will test the city class"""
 
     @unittest.skipIf(
-    tests.TYPE_STORAGE == 'db',
-    "city state_id can't be null for database"
+        tests.TYPE_STORAGE == 'db',
+        "city state_id can't be null for database"
     )
     @classmethod
     def setUpClass(cls):
@@ -22,7 +22,7 @@ class TestCity(unittest.TestCase):
         cls.city = City()
         cls.city.name = "LA"
         cls.city.state_id = "CA"
-    
+
     @unittest.skipIf(tests.TYPE_STORAGE != 'db', 'FileStorage version')
     @classmethod
     def setUpClass(cls):

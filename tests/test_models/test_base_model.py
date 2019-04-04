@@ -54,9 +54,9 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(isinstance(self.base, BaseModel))
 
     @unittest.skipIf(
-            tests.TYPE_STORAGE == 'db',
-            "database doesn't have Basemodel table"
-            )
+        tests.TYPE_STORAGE == 'db',
+        "database doesn't have Basemodel table"
+    )
     def test_save_BaesModel(self):
         """test if the save works"""
         self.base.save()

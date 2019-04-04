@@ -10,9 +10,9 @@ from models.user import User
 import pep8
 import tests
 
+
 class TestPlace(unittest.TestCase):
     """this will test the place class"""
-
 
     @classmethod
     def setUpClass(cls):

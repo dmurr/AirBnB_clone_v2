@@ -80,7 +80,7 @@ class TestReview(unittest.TestCase):
         user = User(email='abc@abc.com', password="secret")
         user.save()
         place = Place(city_id=city.id, user_id=user.id, name="a place to stay")
-        place.save() 
+        place.save()
         self.rev.user_id = user.id
         self.rev.place_id = place.id
         self.rev.save()
