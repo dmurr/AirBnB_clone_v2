@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """This is the file storage class for AirBnB"""
 import json
+import sys
+import inspect
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -26,7 +28,14 @@ class FileStorage:
             returns a dictionary of __objects
         """
         if cls:
-            if cls in dir(self):
+            d = [
+                k
+                for k, v in inspect.getmembers(
+                    sys.modules[__name__],
+                    inspect.isclass
+                )
+            ]
+            if cls.__name__ in d:
                 return {
                     key: value
                     for key, value in self.__objects.items()
@@ -69,12 +78,12 @@ class FileStorage:
         '''Delete an object from __object
 
         Args:
-            obj (Object) : object to delete from __object
+            obj (Object) : object to delete from __objects
 
         '''
         if obj:
             try:
-                key = '{}.{}'.format(obj.__cls__.__name__, obj.id)
+                key = '{}.{}'.format(obj.__class__.__name__, obj.id)
                 self.__objects.pop(key)
             except:
                 pass
