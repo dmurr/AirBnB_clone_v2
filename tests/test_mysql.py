@@ -13,6 +13,7 @@ DB_PWD = os.getenv('HBNB_MYSQL_PWD')
 DB_NAME = os.getenv('HBNB_MYSQL_DB')
 STAGE = os.getenv('HBNB_ENV')
 
+
 class TestMySQLdb(unittest.TestCase):
     '''This will test the database'''
 
@@ -28,3 +29,6 @@ class TestMySQLdb(unittest.TestCase):
             print(my_env)
             print("Establish connection with DB failed due to {}", e)
             self.assertTrue(False)
+
+if __name__ == '__main__':
+    unittest.main()
