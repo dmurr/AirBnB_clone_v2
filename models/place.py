@@ -34,18 +34,27 @@ class Place(BaseModel, Base):
     number_bathrooms = Column(Integer, default=0, nullable=False)
     max_guest = Column(Integer, default=0, nullable=False)
     price_by_night = Column(Integer, default=0, nullable=False)
-    latitude = Column(Float, nullable=False)
-    longitude = Column(Float, nullable=False)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
     amenity_ids = []
 
     place_amenity = Table(
         'place_amenity',
         metadata,
-        Column('place_id', String(60), primary_key=True),
-        Column('amenity_id', String(60), primary_key=True)
+        Column(
+            'place_id',
+            String(60),
+            ForeignKey('places.id'),
+            primary_key=True
+        ),
+        Column('amenity_id',
+               String(60),
+               ForeignKey('amenities.id'),
+               primary_key=True
+               )
     )
 
-    if getenv('HBNB_TYPE_STORAGE') is 'db':
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship(
             'Review',
             backref='place',
@@ -53,10 +62,10 @@ class Place(BaseModel, Base):
         )
 
         amenities = relationship(
-                'Amenity',
-                secondary=place_amenity,
-
-                )
+            'Amenity',
+            secondary=place_amenity,
+            viewonly=False
+        )
     else:
         @property
         def reviews(self):
