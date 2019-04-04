@@ -18,9 +18,6 @@ from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
 
-#ENV = os.environ.get('HBNB_ENV')
-#TYPE_STORAGE = os.environ.get('HBNB_TYPE_STORAGE')
-
 
 class TestConsole(unittest.TestCase):
     """this will test the console"""
