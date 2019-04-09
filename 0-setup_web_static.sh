@@ -16,7 +16,7 @@ DEST="/etc/nginx"
 src="/var/www/default"
 Static="/var/www/default"
 url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-printf "server  {
+echo "server  {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 	server_name localhost;
@@ -39,7 +39,7 @@ printf "server  {
 mkdir -p $Static
 echo "Holberton School was here!" > $Static/index.html
 echo "Ceci n'est pas une page" > $src/page_not_found.html
-header='add_header X-served-By $hostname'
+header="add_header X-served-By \$hostname"
 if ! grep -q "$header" $DEST/nginx.conf; 
 then
 	sed -i "/http {.*/a $header;" $DEST/nginx.conf
