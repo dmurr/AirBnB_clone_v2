@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" These methods aid in deploying the web_static directory 
+""" These methods aid in deploying the web_static directory
 to the remote servers
 """
 from fabric.api import *
