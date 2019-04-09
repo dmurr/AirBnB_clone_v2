@@ -32,4 +32,5 @@ def do_deploy(archive_path):
         run('rm {}/current'.format(dest))
         run('ln -s {d}/releases/{t} {d}/current'
             .format(d=dest, t=cln_name))
+    print('New version deployed!')
     return True
