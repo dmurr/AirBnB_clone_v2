@@ -1,17 +1,43 @@
 #!/usr/bin/python3
-""" This script will deploy the archive file to the
-remote server
+""" These methods aid in deploying the web_static directory 
+to the remote servers
 """
 from fabric.api import *
 import os
+from datetime import datetime
 
 env.hosts = ['104.196.3.52', '35.237.150.53']
+
+
+def do_pack():
+    """This method will pack the web_static dir into a tar.gz
+    for deployinment to remote servers.
+
+    Addtionally this methos will stash all archive into a directory
+    call 'versions'
+    """
+    if not os.path.exists(os.path.dirname("./web_static")):
+        return None
+
+    if not os.path.exists(os.path.dirname("versions")):
+        try:
+            local("mkdir -p versions")
+        except Exception as e:
+            print(e)
+            return None
+    file_name = "web_static_{}.tgz".format(
+        datetime.now().strftime("%Y%m%d%H%M%S")
+    )
+    local("echo {}".format(file_name))
+    local("tar cpfz {} ./web_static".format(file_name))
+    local("mv {f} versions/{f}".format(f=file_name))
+    return os.path.abspath("version/{}".format(file_name))
 
 
 def do_deploy(archive_path):
     """ this method will deploy compressed file
     then unpack and move the content to is proper destination
-    
+
     Returns:
         Bool: True on sucess well Fale
     """

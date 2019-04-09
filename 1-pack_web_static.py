@@ -5,6 +5,7 @@ from fabric.api import local
 from datetime import datetime
 import os
 
+
 def do_pack():
     """This method will pack the web_static dir into a tar.gz
     for deployinment to remote servers.
@@ -23,7 +24,7 @@ def do_pack():
             return None
     file_name = "web_static_{}.tgz".format(
         datetime.now().strftime("%Y%m%d%H%M%S")
-        )
+    )
     local("echo {}".format(file_name))
     local("tar cpfz {} ./web_static".format(file_name))
     local("mv {f} versions/{f}".format(f=file_name))
