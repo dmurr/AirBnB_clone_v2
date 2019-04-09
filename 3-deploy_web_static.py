@@ -8,6 +8,7 @@ from datetime import datetime
 
 env.hosts = ['104.196.3.52', '35.237.150.53']
 
+
 @runs_once
 def do_pack():
     """This method will pack the web_static dir into a tar.gz
@@ -60,12 +61,13 @@ def do_deploy(archive_path):
     print('New version deployed!')
     return True
 
+
 def deploy():
     """this method will pack and deploy
     """
-    path = do_pack();
+    path = do_pack()
     print(path)
     if path:
         dp = do_deploy(path)
-        return dp;
+        return dp
     return False
