@@ -28,4 +28,4 @@ def do_pack():
     local("echo {}".format(file_name))
     local("tar cpfz {} ./web_static".format(file_name))
     local("mv {f} versions/{f}".format(f=file_name))
-    return os.path.abspath("version/{}".format(file_name))
+    return "versions/{}".format(file_name)
